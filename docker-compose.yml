@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq-stream
+    volumes:
+      - ./data/etc/:/etc/rabbitmq/
+      - ./data/data:/var/lib/rabbitmq/
+      - ./data/logs/:/var/log/rabbitmq/
+    ports:
+      - "5672:5672"
+      - "8089:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "aaa"
+      RABBITMQ_DEFAULT_USER: "ID"
+      RABBITMQ_DEFAULT_PASS: "PASSWORD"
+    networks:
+      - rabbitmq
+
+networks:
+  rabbitmq:
+    driver: bridge
